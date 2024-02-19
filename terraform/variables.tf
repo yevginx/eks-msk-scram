@@ -15,5 +15,5 @@ variable "eks_vpc_cidr" {
 }
 
 variable "eks_vpc_id" {
-  default = "vpc-07ddb9f63255a6422"
+  default = "vpc-04034aa602640bf64"
 }

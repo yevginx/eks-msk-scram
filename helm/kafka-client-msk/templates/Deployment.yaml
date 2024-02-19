@@ -21,8 +21,8 @@ spec:
     spec:
       serviceAccountName: {{ .Values.kafkaClientMSK.serviceAccountName }}
       containers:
-        - image: {{ .Values.kafkaClientMSK.image.image }}
-          name: kafka-client-msk
+        - name: kafka-client-msk
+          image: "{{ .Values.kafkaClientMSK.image.repository }}:{{ .Values.kafkaClientMSK.image.tag }}"
           imagePullPolicy: {{ .Values.kafkaClientMSK.image.pullPolicy }}
-          command: [ "/bin/sh" ]
-          args: [ "-c", "tail -f /dev/null" ]
+          command: ["/bin/sh"]
+          args: ["-c", "tail -f /dev/null"]

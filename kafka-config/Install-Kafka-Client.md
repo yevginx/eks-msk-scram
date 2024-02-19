@@ -21,8 +21,8 @@ kubectl exec -it $KAFKA_CONTAINER -n kafka -- bash
 <https://kafka.apache.org/quickstart>
 
 ```shell
-KAFKA_PACKAGE=kafka_2.13-2.8.0
-wget -qO- https://downloads.apache.org/kafka/2.8.0/$KAFKA_PACKAGE.tgz | tar -xzf -
+KAFKA_PACKAGE=kafka_2.13-3.5.0
+wget -qO- https://downloads.apache.org/kafka/3.5.0/$KAFKA_PACKAGE.tgz | tar -xzf -
 ```
 
 ## Set up encryption for MSK in the EKS Tomcat container client
@@ -31,13 +31,14 @@ wget -qO- https://downloads.apache.org/kafka/2.8.0/$KAFKA_PACKAGE.tgz | tar -xzf
 
 ```shell
 # Java path specific for CMAK container
-cp /usr/local/openjdk-16/lib/security/cacerts /tmp/kafka.client.truststore.jks
+cp $JAVA_HOME/lib/security/cacerts /tmp/kafka.client.truststore.jks
+# cp /usr/local/openjdk-16/lib/security/cacerts /tmp/kafka.client.truststore.jks
 exit
 ```
 Install client properties for non-IAM cluster security.
 
 ```shell
-KAFKA_PACKAGE=kafka_2.13-2.8.0
+KAFKA_PACKAGE=kafka_2.13-3.5.0
 PROPERTIES_FILE="./kafka-config/client.properties"
 kubectl cp ${PROPERTIES_FILE} \
   $KAFKA_CONTAINER:/usr/local/tomcat/$KAFKA_PACKAGE/bin/ -n kafka
@@ -50,7 +51,7 @@ Install client properties for IAM-based auth with IAM Policy for security.
 <https://github.com/aws/aws-msk-iam-auth/blob/71798fc5b7e08d12e6beb48a6f0864eb27f04ebb/src/main/java/software/amazon/msk/auth/iam/internals/MSKCredentialProvider.java#L43>
 
 ```shell
-KAFKA_PACKAGE=kafka_2.13-2.8.0
+KAFKA_PACKAGE=kafka_2.13-3.5.0
 PROPERTIES_FILE="./kafka-config/client-iam.properties"
 kubectl cp ${PROPERTIES_FILE} \
   $KAFKA_CONTAINER:/usr/local/tomcat/$KAFKA_PACKAGE/bin/ -n kafka
@@ -59,7 +60,7 @@ kubectl cp ${PROPERTIES_FILE} \
 Install client properties for IAM-based auth with existing IAM Role for security.
 
 ```shell
-KAFKA_PACKAGE=kafka_2.13-2.8.0
+KAFKA_PACKAGE=kafka_2.13-3.5.0
 PROPERTIES_FILE="./kafka-config/client-oidc.properties"
 sed -i "" "s/AWS_ACCOUNT/${AWS_ACCOUNT}/g" ${PROPERTIES_FILE}
 kubectl cp ${PROPERTIES_FILE} \
@@ -69,7 +70,7 @@ kubectl cp ${PROPERTIES_FILE} \
 Working with a Non-IAM Cluster.
 
 ```shell
-KAFKA_PACKAGE=kafka_2.13-2.8.0
+KAFKA_PACKAGE=kafka_2.13-3.5.0
 PROPERTIES_FILE="bin/client.properties"
 cd $KAFKA_PACKAGE
 
@@ -97,7 +98,7 @@ bin/kafka-console-consumer.sh --bootstrap-server $BBROKERS \
 Working with an IAM Cluster (W/ or w/o existing IAM Role).
 
 ```shell
-KAFKA_PACKAGE=kafka_2.13-2.8.0
+KAFKA_PACKAGE=kafka_2.13-3.5.0
 PROPERTIES_FILE="bin/client-iam.properties"
 # PROPERTIES_FILE="bin/client-oidc.properties" # existing IAM role
 cd $KAFKA_PACKAGE

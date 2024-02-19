@@ -1,8 +1,7 @@
-
-
 kafkaClientMSK:
   serviceAccountName: kafka-client-msk-sasl-scram-serviceaccount
   replicaCount: 1
   image:
-    image: glinsky/kafka-client-msk:1.0.2
+    repository: glinsky/kafka-client-msk
+    tag: 1.0.0
     pullPolicy: IfNotPresent
