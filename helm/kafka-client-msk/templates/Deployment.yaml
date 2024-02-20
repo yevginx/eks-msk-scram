@@ -26,3 +26,11 @@ spec:
           imagePullPolicy: {{ .Values.kafkaClientMSK.image.pullPolicy }}
           command: ["/bin/sh"]
           args: ["-c", "tail -f /dev/null"]
+          volumeMounts:
+            - name: kafka-config
+              mountPath: /etc/kafka
+              readOnly: true
+      volumes:
+        - name: kafka-config
+          secret:
+            secretName: kafka-client-scram-properties

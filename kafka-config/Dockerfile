@@ -38,4 +38,4 @@ WORKDIR /$KAFKA_PACKAGE
 RUN wget https://github.com/aws/aws-msk-iam-auth/releases/download/$AWS_MSK_IAM_AUTH/aws-msk-iam-auth-$AWS_MSK_IAM_AUTH-all.jar \
     && mv aws-msk-iam-auth-$AWS_MSK_IAM_AUTH-all.jar libs/
 
-CMD ["/bin/sh", "-c", "tail -f /dev/null"]
+CMD ["/bin/bash"]

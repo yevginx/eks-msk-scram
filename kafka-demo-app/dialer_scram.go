@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	secretId     = "AmazonMSK_credentials"
+	secretId     = "AmazonMSK_credentials_v3" // Updated to match the actual secret name
 	versionStage = "AWSCURRENT"
 )
 
